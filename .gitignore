@@ -1,3 +1,4 @@
+<<<<<<< 268ff889cf7d8deb695882fb05abc958c41ac99d
 /.idea
 /.history
 /.vscode
@@ -14,3 +15,19 @@ jsconfig.json
 public
 .env
 *.iml
+=======
+/.git
+/.vscode
+/.history
+/.gradle
+/gradle
+*.class
+*.log
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+>>>>>>> Add initial Spring Boot code
