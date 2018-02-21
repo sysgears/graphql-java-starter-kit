@@ -54,7 +54,7 @@ Copyright © 2018 [SysGears INC]. This source code is licensed under the [MIT] l
 [sysgears inc]: http://sysgears.com
 [react native]: https://github.com/facebook/react-native
 [expo]: https://expo.io
-[gitter channel]: https://gitter.im/sysgears/grapql-java-starter-kit
-[github issues]: https://github.com/sysgears/grapql-java-starter-kit/issues
-[Wiki]: https://github.com/sysgears/grapql-java-starter-kit/wiki
-[FAQ]: https://github.com/sysgears/grapql-java-starter-kit/wiki/Frequently-Asked-Questions
+[gitter channel]: https://gitter.im/sysgears/graphql-java-starter-kit
+[github issues]: https://github.com/sysgears/graphql-java-starter-kit/issues
+[Wiki]: https://github.com/sysgears/graphql-java-starter-kit/wiki
+[FAQ]: https://github.com/sysgears/graphql-java-starter-kit/wiki/Frequently-Asked-Questions
