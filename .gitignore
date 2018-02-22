@@ -2,7 +2,11 @@
 /.vscode
 /.history
 /.gradle
+/.idea
 /gradle
+.classpath
+.project
+/.settings
 *.class
 *.log
 *.jar
