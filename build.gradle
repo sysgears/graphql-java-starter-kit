@@ -36,3 +36,14 @@ idea {
         outputDir = file("$buildDir/classes/java/main/")
     }
 }
+
+eclipse {
+   classpath {
+       defaultOutputDir = file("build/classes/java/main")
+       file {
+           whenMerged { classpath ->
+               classpath.entries.findAll { entry -> entry.kind == 'src' }*.output = "build/classes/java/main"
+           }
+       }
+   }
+}
