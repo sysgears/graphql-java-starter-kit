@@ -8,6 +8,15 @@ buildscript {
     }
 }
 
+plugins {
+  id 'com.github.sherter.google-java-format' version '0.6'
+}
+
+googleJavaFormat {
+  toolVersion = '1.5'
+  exclude '.history/**'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -27,6 +36,7 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("com.google.googlejavaformat:google-java-format:1.5")
     testCompile("junit:junit")
 }
 
@@ -44,7 +54,7 @@ eclipse {
            whenMerged { classpath ->
                def srcEntries = classpath.entries.findAll { entry -> entry.kind == 'src' }
                srcEntries*.output = "build/classes/java/main"
-               srcEntries*.excludes = [".history/**/*.java"]
+               srcEntries*.excludes = [".history/**"]
            }
        }
    }
