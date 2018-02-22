@@ -42,7 +42,9 @@ eclipse {
        defaultOutputDir = file("build/classes/java/main")
        file {
            whenMerged { classpath ->
-               classpath.entries.findAll { entry -> entry.kind == 'src' }*.output = "build/classes/java/main"
+               def srcEntries = classpath.entries.findAll { entry -> entry.kind == 'src' }
+               srcEntries*.output = "build/classes/java/main"
+               srcEntries*.excludes = [".history/**/*.java"]
            }
        }
    }
