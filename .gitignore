@@ -3,6 +3,7 @@
 /.history
 /.gradle
 /.idea
+/build
 /gradle
 .classpath
 .project
