@@ -1,21 +1,12 @@
 buildscript {
-    repositories {
-        jcenter()
-    }
+    repositories { jcenter() }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE")
         classpath 'org.springframework:springloaded:1.2.6.RELEASE'
     }
 }
 
-plugins {
-  id 'com.github.sherter.google-java-format' version '0.6'
-}
-
-googleJavaFormat {
-  toolVersion = '1.5'
-  exclude '.history/**'
-}
+plugins { id "com.diffplug.gradle.spotless" version "3.10.0" }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -26,9 +17,7 @@ version = '1.0.0'
 
 defaultTasks 'bootRun'
 
-repositories {
-    mavenCentral()
-}
+repositories { mavenCentral() }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -36,9 +25,64 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("com.google.googlejavaformat:google-java-format:1.5")
     testCompile("junit:junit")
 }
+
+task installGitHooks {
+    doLast {
+        if (!file('.git/hooks/pre-commit').exists()) {
+            file('.git/hooks/pre-commit') << file('.pre-commit').text
+            if (!System.properties['os.name'].toLowerCase().contains('windows')) {
+                Runtime.getRuntime().exec("chmod -R +x .git/hooks/")
+            }
+        }
+    }
+}
+
+build.dependsOn installGitHooks
+test.dependsOn installGitHooks
+
+spotless {
+    java { eclipse().configFile '.codestyle.prefs' }
+    groovy {
+        target '**/*.gradle'
+        greclipse().configFile '.codestyle.prefs'
+    }
+    format 'misc', {
+        target '**/.gitignore', '**/*.md', '**/*.sh'
+        indentWithSpaces(4)
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+apply plugin: 'findbugs'
+dependencies {
+    compile 'com.google.code.findbugs:annotations:3.0.0'
+    compile 'com.google.code.findbugs:jsr305:3.0.0'
+}
+findbugs {
+    toolVersion = '3.0.1'
+    sourceSets = [sourceSets.main]
+    ignoreFailures = false
+    reportsDir = file('build/findbugs')
+    effort = 'max'
+    reportLevel = 'low'
+    omitVisitors = []
+}
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = false
+    }
+}
+
+task format {
+    dependsOn 'spotlessApply'
+    dependsOn 'spotlessMiscApply'
+}
+
+tasks.withType(Test) { dependsOn 'format' }
 
 idea {
     module {
@@ -48,14 +92,20 @@ idea {
 }
 
 eclipse {
-   classpath {
-       defaultOutputDir = file("build/classes/java/main")
-       file {
-           whenMerged { classpath ->
-               def srcEntries = classpath.entries.findAll { entry -> entry.kind == 'src' }
-               srcEntries*.output = "build/classes/java/main"
-               srcEntries*.excludes = [".history/**"]
-           }
-       }
-   }
+    classpath {
+        defaultOutputDir = file("build/classes/java/main")
+        file {
+            whenMerged { classpath ->
+                def srcEntries = classpath.entries.findAll { entry -> entry.kind == 'src' }
+                srcEntries*.output = "build/classes/java/main"
+                srcEntries*.excludes = [".history/**"]
+                if (System.env['VSCODE_PID'] != null) {
+                    if (!file('.vscode/settings.json').exists()) {
+                        file('.vscode').mkdir();
+                        file('.vscode/settings.json') << "{\n  \"editor.formatOnSave\": true\n}"
+                    }
+                }
+            }
+        }
+    }
 }
