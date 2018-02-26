@@ -25,6 +25,7 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("com.graphql-java:graphql-java:7.0")
     testCompile("junit:junit")
 }
 
