@@ -1,1 +1,3 @@
 rootProject.name = 'graphql-java-starter-kit'
+
+include ':packages:server-java'

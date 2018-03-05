@@ -3,11 +3,11 @@
 /.history
 /.gradle
 /.idea
-  /build
+build
 /gradle
 .classpath
 .project
-/.settings
+.settings
 *.class
 *.log
 *.jar
@@ -17,3 +17,5 @@
 *.tar.gz
 *.rar
 hs_err_pid*
+/build/
+/bin/

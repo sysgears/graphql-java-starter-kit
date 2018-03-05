@@ -1,0 +1,76 @@
+buildscript { repositories { jcenter() } }
+
+plugins { id "com.diffplug.gradle.spotless" version "3.10.0" }
+
+task installGitHooks {
+    doLast {
+        if (!file('.git/hooks/pre-commit').exists()) {
+            file('.git/hooks/pre-commit') << file('.pre-commit').text
+            if (!System.properties['os.name'].toLowerCase().contains('windows')) {
+                Runtime.getRuntime().exec("chmod -R +x .git/hooks/")
+            }
+        }
+    }
+}
+
+tasks.matching { it.name != 'installGitHooks' }.all { Task task ->
+    task.dependsOn installGitHooks
+}
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+dependencies { compile project(':packages:server-java') }
+
+defaultTasks 'bootRun'
+
+spotless {
+    java {
+        target fileTree(rootDir) {
+            include '**/*.java'
+            exclude '.history/**'
+        }
+        eclipse().configFile '.codestyle.prefs'
+    }
+    groovy {
+        target fileTree(rootDir) {
+            include '**/*.gradle'
+            exclude '.history/**'
+        }
+        greclipse().configFile '.codestyle.prefs'
+        paddedCell()
+    }
+    format 'misc', {
+        target fileTree(rootDir) {
+            include '**/.gitignore', '**/*.md', '**/*.sh'
+            exclude '.history/**'
+        }
+        indentWithSpaces(4)
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+task format {
+    dependsOn 'spotlessApply'
+    dependsOn 'spotlessMiscApply'
+}
+
+tasks.withType(Test) { dependsOn 'format' }
+
+eclipse {
+    classpath {
+        file {
+            whenMerged { classpath ->
+                if (System.env['VSCODE_PID'] != null) {
+                    if (!file('.vscode/settings.json').exists()) {
+                        file('.vscode').mkdir();
+                        file('.vscode/settings.json') << "{\n  \"editor.formatOnSave\": true\n}"
+                    }
+                }
+            }
+        }
+    }
+}
