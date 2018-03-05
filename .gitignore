@@ -21,11 +21,11 @@ public
 /.history
 /.gradle
 /.idea
-  /build
+build
 /gradle
 .classpath
 .project
-/.settings
+.settings
 *.class
 *.log
 *.jar
@@ -35,4 +35,9 @@ public
 *.tar.gz
 *.rar
 hs_err_pid*
+<<<<<<< abe9fec297c6d52a3fdace0b85346bf1dd1e9a50
 >>>>>>> Add initial Spring Boot code
+=======
+/build/
+/bin/
+>>>>>>> Implement multi-project structure

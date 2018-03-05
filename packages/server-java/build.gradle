@@ -1,21 +1,17 @@
 buildscript {
     repositories { jcenter() }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE")
-        classpath 'org.springframework:springloaded:1.2.6.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE'
+        classpath 'org.springframework:springloaded:1.2.8.RELEASE'
     }
 }
 
-plugins { id "com.diffplug.gradle.spotless" version "3.10.0" }
-
-apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
 version = '1.0.0'
-
-defaultTasks 'bootRun'
 
 repositories { mavenCentral() }
 
@@ -27,34 +23,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("com.graphql-java:graphql-java:7.0")
     testCompile("junit:junit")
-}
-
-task installGitHooks {
-    doLast {
-        if (!file('.git/hooks/pre-commit').exists()) {
-            file('.git/hooks/pre-commit') << file('.pre-commit').text
-            if (!System.properties['os.name'].toLowerCase().contains('windows')) {
-                Runtime.getRuntime().exec("chmod -R +x .git/hooks/")
-            }
-        }
-    }
-}
-
-build.dependsOn installGitHooks
-test.dependsOn installGitHooks
-
-spotless {
-    java { eclipse().configFile '.codestyle.prefs' }
-    groovy {
-        target '**/*.gradle'
-        greclipse().configFile '.codestyle.prefs'
-    }
-    format 'misc', {
-        target '**/.gitignore', '**/*.md', '**/*.sh'
-        indentWithSpaces(4)
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
 }
 
 apply plugin: 'findbugs'
@@ -78,13 +46,6 @@ tasks.withType(FindBugs) {
     }
 }
 
-task format {
-    dependsOn 'spotlessApply'
-    dependsOn 'spotlessMiscApply'
-}
-
-tasks.withType(Test) { dependsOn 'format' }
-
 idea {
     module {
         inheritOutputDirs = false
@@ -100,12 +61,6 @@ eclipse {
                 def srcEntries = classpath.entries.findAll { entry -> entry.kind == 'src' }
                 srcEntries*.output = "build/classes/java/main"
                 srcEntries*.excludes = [".history/**"]
-                if (System.env['VSCODE_PID'] != null) {
-                    if (!file('.vscode/settings.json').exists()) {
-                        file('.vscode').mkdir();
-                        file('.vscode/settings.json') << "{\n  \"editor.formatOnSave\": true\n}"
-                    }
-                }
             }
         }
     }

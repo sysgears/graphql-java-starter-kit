@@ -24,7 +24,7 @@ public class HelloController {
         TypeDefinitionRegistry typeDefinitionRegistry = schemaParser.parse(schema);
 
         RuntimeWiring runtimeWiring = newRuntimeWiring()
-                .type("Query", builder -> builder.dataFetcher("hello", new StaticDataFetcher("world"))).build();
+                .type("Query", builder -> builder.dataFetcher("hello", new StaticDataFetcher("world5"))).build();
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeDefinitionRegistry, runtimeWiring);
