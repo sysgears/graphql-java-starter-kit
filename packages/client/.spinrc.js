@@ -10,7 +10,7 @@ const config = {
         __CLIENT__: true
       },
       // Wait for backend to start prior to letting webpack load frontend page
-      waitOn: ['tcp:localhost:8080'],
+      waitOn: ['tcp:localhost:8000', 'tcp:localhost:8080'],
       enabled: true
     },
     test: {
@@ -31,7 +31,7 @@ const config = {
     frontendRefreshOnBackendChange: true,
     defines: {
       __DEV__: process.env.NODE_ENV !== 'production',
-      __BACKEND_URL__: '"http://localhost:8080/graphql"'
+      __BACKEND_URL__: '"http://localhost:8000/graphql"'
     }
   }
 };

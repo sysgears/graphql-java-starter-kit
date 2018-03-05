@@ -4,6 +4,9 @@
 /.cache
 /.gradle
 /gradle
+.project
+.classpath
+.settings
 .tmp
 node_modules
 build

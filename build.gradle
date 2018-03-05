@@ -1,6 +1,9 @@
 buildscript { repositories { jcenter() } }
 
-plugins { id "com.diffplug.gradle.spotless" version "3.10.0" }
+plugins {
+    id "com.diffplug.gradle.spotless" version "3.10.0"
+    id "com.moowork.node" version "1.2.0"
+}
 
 task installGitHooks {
     doLast {
@@ -24,13 +27,25 @@ apply plugin: 'idea'
 
 dependencies { compile project(':packages:server-java') }
 
-defaultTasks 'bootRun'
+task spinWatch(type: NodeTask) {
+    script = file('node_modules/.bin/spin')
+    args = ['watch']
+}
+
+task watch {
+    dependsOn spinWatch
+    dependsOn ':packages:server-java:bootRun'
+}
+
+defaultTasks 'watch'
 
 spotless {
     java {
         target fileTree(rootDir) {
             include '**/*.java'
             exclude '.history/**'
+            exclude '**/node_modules/**'
+            exclude '**/.tmp/**'
         }
         eclipse().configFile '.codestyle.prefs'
     }
@@ -38,6 +53,8 @@ spotless {
         target fileTree(rootDir) {
             include '**/*.gradle'
             exclude '.history/**'
+            exclude '**/node_modules/**'
+            exclude '**/.tmp/**'
         }
         greclipse().configFile '.codestyle.prefs'
         paddedCell()
@@ -46,6 +63,8 @@ spotless {
         target fileTree(rootDir) {
             include '**/.gitignore', '**/*.md', '**/*.sh'
             exclude '.history/**'
+            exclude '**/node_modules/**'
+            exclude '**/.tmp/**'
         }
         indentWithSpaces(4)
         trimTrailingWhitespace()
