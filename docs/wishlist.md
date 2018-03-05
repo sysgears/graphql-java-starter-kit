@@ -10,4 +10,3 @@ What would you like to see added or enhanced in this project?
 - loading additional assets
 - material design UI
 - i18n
-

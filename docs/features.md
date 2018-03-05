@@ -2,15 +2,15 @@
 
 
 - Overview
-   - Purpose 
-   - Client Feature vs Server Feature classes   
+   - Purpose
+   - Client Feature vs Server Feature classes
 - Server Feature
    - Arguments
      - schema
      - createResolversFunc
-         - When is it invoked? 
+         - When is it invoked?
              - What should it return?
-             - Using pubsub 
+             - Using pubsub
                  - explain the pubsub argument
          - createContextFunc
              - when is it invoked?
@@ -37,10 +37,10 @@
 ---
 
 Feature-modules is an attempt to have Interface-like concept in JavaScript.
-We connect all the modules in client/modules to the other parts of kits code 
-using one Interface declared in connector.js. 
-Each such module must implement this Interface. 
-When we have Interface we know how to write new module-feature implementing that Interface 
+We connect all the modules in client/modules to the other parts of kits code
+using one Interface declared in connector.js.
+Each such module must implement this Interface.
+When we have Interface we know how to write new module-feature implementing that Interface
 and how to use all feature-modules that implement that Interface in the rest of the kit
 
 
