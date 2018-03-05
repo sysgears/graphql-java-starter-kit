@@ -1,31 +1,8 @@
-<<<<<<< 268ff889cf7d8deb695882fb05abc958c41ac99d
-/.idea
-/.history
-/.vscode
-/.cache
-.tmp
-node_modules
-build
-.gqlconfig
-.expo
-*.log
-*.sqlite3
-.DS_Store
-jsconfig.json
-public
-.env
-*.iml
-=======
 /.git
 /.vscode
 /.history
 /.gradle
-/.idea
-build
 /gradle
-.classpath
-.project
-.settings
 *.class
 *.log
 *.jar
@@ -35,9 +12,3 @@ build
 *.tar.gz
 *.rar
 hs_err_pid*
-<<<<<<< abe9fec297c6d52a3fdace0b85346bf1dd1e9a50
->>>>>>> Add initial Spring Boot code
-=======
-/build/
-/bin/
->>>>>>> Implement multi-project structure
