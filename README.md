@@ -5,8 +5,6 @@
 ### _Use [our chat](https://gitter.im/sysgears/graphql-java-starter-kit), please, to get help really quick or to discuss general topic_ ###
 
 [![Join the chat at https://gitter.im/sysgears/graphql-java-starter-kit](https://badges.gitter.im/sysgears/graphql-java-starter-kit.svg)](https://gitter.im/sysgears/graphql-java-starter-kit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/sysgears/graphql-java-starter-kit.svg?branch=master)](https://travis-ci.org/sysgears/graphql-java-starter-kit)
-[![Greenkeeper badge](https://badges.greenkeeper.io/sysgears/graphql-java-starter-kit.svg)](https://greenkeeper.io/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/sysgears.svg?style=social)](https://twitter.com/sysgears)
 
 > GraphQL Java Starter Kit is a SEO friendly boilerplate for Mobile and Web app development built on top
